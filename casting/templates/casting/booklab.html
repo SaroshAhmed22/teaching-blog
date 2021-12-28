@@ -1,0 +1,203 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Time Table{% endblock %}
+
+
+
+{% block content %}
+
+<main class="mt-5">
+    <div class="container">
+        <!-- section 1 for standards-->
+
+        <section class="text-center">
+            <h2 class="mb-5 font-weight-bold" style="color:#ff5722;">Lab Resource Allocation </h2>
+            <!-- class row for description-->
+            <div class="row d-flex justify-content-center mb-4">
+                <!-- class column -->
+                <div class="col-md-8">
+                    <p class="grey-text">SSUET Computer Engineering Depart </p>
+                    <h2 class="mb-5 font-weight-bold" style="color:#ff5722;">Lab Resource Allocation </h2>
+                </div>
+            </div>
+
+            <!-- request for class -->
+            <div class="row d-flex justify-content-center mb-4">
+
+                <form
+                    action="{% url 'casting:booklabdoneurldef' roomname=roomid slottime2=slotid ok='ok' fttid=fttid slug=dayslug  %}"
+                    method="POST">
+                    <div class="form-group">
+                        <!-- <div class="row" style="display: contents; " >
+                            <span> <strong>Room</strong>  </span> 
+                            <span> <strong>Time Slot</strong>  </span>
+                            <span> <strong>Day</strong>  </span>
+                        <P></P>
+                            <span> <strong>{{roomid}}</strong>  </span> 
+                            <span> <strong>{{slotid}}</strong>  </span> 
+                            <span> <strong>{{dayslug}}</strong>  </span>
+                            
+                        </div> -->
+
+
+                        {% csrf_token %}
+                        <div class="col-md-12"
+                            style="background: rgb(173 ,20 ,106); color:rgb(255, 248 ,220) ; margin-top: 3px; padding:10px; ">
+
+                            <div class="row" style="display: contents; ">
+                                <div style="padding: 5px; margin: 5px;">
+                                    <span> <strong> Room &nbsp; &nbsp; </strong> </span>
+
+                                    <span> <strong> Time-Slot &nbsp; &nbsp;</strong> </span>
+                                    <span> <strong> Day &nbsp; &nbsp;</strong> </span>
+                                    <p></p>
+                                    <span> <strong>{{ roomid }} &nbsp; &nbsp; &nbsp; &nbsp; </strong> </span>
+
+                                    <span> <strong>{{slotid}} &nbsp; &nbsp; </strong> </span>
+                                    <span> <strong>{{dayslug}} &nbsp; &nbsp;</strong> </span>
+                                    <p> </p>
+                                </div>
+                                <label for="cou" class="select">Choose a Course:</label>
+
+                                <select name="cou" id="cou" style="margin-right: 20px;">
+                                    <option value="1"> Meeting </option>
+                                    <option value="1"> Other </option>
+                                    <option value="1"> Work Shop </option>
+                                    {% for option in course %}
+                                    <option value="{{ option.id }}"> {{option.name }} </option>
+                                    {% endfor %}
+                                </select>
+
+                                <!-- </div> -->
+                                <div class="row" style="display: contents;">
+                                    <label for="sec" class="select">Choose a Section:</label>
+
+
+                                    <select name="sec" id="sec" style="margin-right: 20px;">
+
+                                        <option value="1"> None </option>
+                                        <option value="1"> CE </option>
+                                        <option value="1"> EE </option>
+                                        <option value="1"> CV </option>
+                                        <option value="1"> EL </option>
+                                        {% for option in secfilter %}
+                                        <option value="{{ option.id }}"> {{option.name }} </option>
+                                        {% endfor %}
+                                    </select>
+
+                                </div>
+
+                                <div class="row" style="display: contents;">
+                                    <label for="tea" class="select">Choose a Teacher:</label>
+
+                                    <select name="tea" id="tea" style="width: 60px; ">
+                                        <option value="1"> Sir Rehan </option>
+                                        <option value="2"> Sarosh </option>
+                                        <option value="3"> Hamza </option>
+                                        <option value="4"> Idrees </option>
+                                        <option value="5"> Qandil </option>
+                                        {% for option in teacherc %}
+                                        <div>
+                                            <option value="{{ option.id }}"> {{option.user.username }} </option>
+                                            {% endfor %}
+                                        </div>
+                                    </select>
+
+                                </div>
+                            </div>
+
+                            <div style="margin: 4px; padding: 12px; background:white; color:black; ">
+                                <h5 style="color: brown; background:cornsilk; padding:6px; margin-bottom: 16px;">Note:
+                                    Following sections are busy for that <strong>Time slot</strong> and
+                                    <strong>Day</strong> which you choosen. </h5>
+                                {% for bsec in busy_sec_list %}
+                                <h6 class="d-inline-block busy_sec"> {{bsec}} </h6>
+                                <h6 class="d-inline-block busy_sec"> {{bsec}} </h6>
+                                <h6 class="d-inline-block busy_sec"> {{bsec}} </h6>
+                                <h6 class="d-inline-block busy_sec"> {{bsec}} </h6>
+                                {% endfor %}
+                            </div>
+                            <div class="row justify-content-center" style="background: rgb(87 ,39, 52); color:rgb(1, 1, 24); margin: 0px; padding:5px;
+                            ">
+
+
+
+                                <input type="submit" value="Done" class="btn btn-success btn-lg mt-3 "
+                                    style="padding:0px; margin:auto; font-size: 20px; font-family: none; background: rgb(54, 165, 141);">
+
+                                <a href="" class="btn btn-danger btn-lg mt-3 "
+                                    style="padding:0px; margin:auto; font-size: 20px; font-family: none; background: rgb(206, 100, 81);">Cancel
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- end request class -->
+            <!-- class row2 for cards -->
+
+
+            <!-- carousel -->
+
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+                </ol>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img class="d-block w-100 tales" src=" {% static 'Images/carou1.jpg' %}" alt="First slide">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block w-100 tales" src="{% static 'Images/carou2.jpg' %}" alt="Second slide">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block w-100 tales" src="{% static 'Images/carou3.jpg' %}" alt="Third slide">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block w-100 tales" src="{% static 'Images/carou4.jpg' %}" alt="Third slide">
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+
+            <!-- carousel end -->
+
+            <div class="col-md-12 justify-content-center mb-5">
+                <h4 class="card-title" style="color:#ff5722;">Time-Table</h4>
+
+            </div>
+        </section>
+        <hr class="my-5" style="color:#ff5722;">
+        <!-- Section 2: Faculty Members -->
+
+        <section class="text-center">
+            <h2 class="mb-5 font-weight-bold" style="color:#ff5722;">Meet Our Faculty</h2>
+            <div class="row d-flex justify-content-center mb-4">
+                <div class="col-md-8">
+                    <p class="grey-text">SSUET Computer Engineering Depart
+                        Sir Syed Univesity faculty is outstanding even I cant describe in words my expression
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+        <hr class="my-5" style="color:#ff5722;">
+    </div>
+
+
+    <hr class="my-5" style="color:#ff5722;">
+</main>
+
+
+{%endblock%}

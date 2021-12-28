@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Time Table{% endblock %}
+
+
+
+{% block content %}
+
+<main class="mt-5">
+    <div class="container">
+        <!-- section 1 for standards-->
+
+        <section class="text-center">
+            <h2 class="mb-5 font-weight-bold" style="color:#ff5722;"> Are You Sure ? </h2>
+            <!-- class row for description-->
+            <div class="row d-flex justify-content-center mb-4">
+                <!-- class column -->
+                <div class="col-md-8">
+                    <p class="grey-text">SSUET Computer Engineering Depart </p>
+                    <h2 class="mb-5 font-weight-bold" style="color:#ff5722;"> Your Request Lab Application's Detail
+                    </h2>
+                </div>
+            </div>
+
+            <!-- request for class -->
+            <div class="row d-flex justify-content-center mb-4">
+                <form action="{% url 'casting:okdonelab' %} " method="POST">
+                    <div class="form-group">
+                        <!-- <div class="row" style="display: contents; " >
+                            <span> <strong>Room</strong>  </span> 
+                            <span> <strong>Time Slot</strong>  </span>
+                            <span> <strong>Day</strong>  </span>
+                        <P></P>
+                            <span> <strong>{{roomid}}</strong>  </span> 
+                            <span> <strong>{{slotid}}</strong>  </span> 
+                            <span> <strong>{{dayslug}}</strong>  </span>
+                            
+                        </div> -->
+                        <input type="hidden" value="{{couname.id}}" name="couid">
+                        <input type="hidden" value="{{secname.id}}" name="secid">
+                        <input type="hidden" value="{{teaname.id}}" name="teaid">
+                        <input type="hidden" value="{{fttid}}" name="fttid">
+
+                        {% csrf_token %}
+                        <div class="col-md-12"
+                            style="background: rgb(173 ,20 ,106); color:rgb(255, 248 ,220) ; margin-top: 3px; padding:10px; ">
+
+                            <div class="row" style="display: contents; ">
+                                <div style="padding: 5px; margin: 5px; border: 2px solid; ">
+                                    <span> <strong> Room &nbsp; &nbsp; </strong> </span>
+                                    <span> <strong> Time-Slot &nbsp; &nbsp;</strong> </span>
+                                    <span> <strong> Day &nbsp; &nbsp;</strong> </span>
+                                    <span> <strong> Course &nbsp; &nbsp;</strong> </span>
+                                    <span> <strong> Section &nbsp; &nbsp;</strong> </span>
+                                    <span> <strong> Teacher &nbsp; &nbsp;</strong> </span>
+                                    <p></p>
+                                    <div style="color:rgb(229 ,224, 166)" ;>
+                                        <span> <strong>{{ roomid }} &nbsp; &nbsp; &nbsp; &nbsp; </strong> </span>
+                                        <span> <strong>{{slotid}} &nbsp; &nbsp; </strong> </span>
+                                        <span> <strong>{{dayid}} &nbsp; &nbsp;</strong> </span>
+                                        <span> <strong>{{couname.name}} &nbsp; &nbsp;</strong> </span>
+                                        <span> <strong>{{secname.name}} &nbsp; &nbsp;</strong> </span>
+                                        <span> <strong>{{teaname.user.username}} &nbsp; &nbsp;</strong> </span>
+                                    </div>
+                                    <p> </p>
+                                </div>
+
+                                <p style="border: solid 2px rgb(230, 230, 240); color: darkorange;"> {% if
+                                    user.is_superuser %} If you want {% else %} System will {% endif %} send
+                                    notification to as follows: </p>
+
+                                <div style="margin-left:12px; color:rgba(247 ,247, 38, 66%);">
+                                    <div class="row" style="display: contents; ">
+                                        <!-- <label for="tea">Class Advisor:</label>  -->
+                                        <input type="checkbox" id="vehicle1" name="adv" value="adv" checked {% if not
+                                            user.is_superuser %} checked disabled {% endif %}>
+                                        <label for="vehicle1"><span style="color: rgb(227, 255, 170);">Class
+                                                Advisor:</span> {{ ademail }}</label><br>
+                                    </div>
+
+                                    <!-- </div> -->
+                                    <div class="row" style="display: contents;">
+                                        <!-- <label for="sec">Class CR:</label> -->
+                                        <input type="checkbox" id="vehicle1" name="cr" value="cr" checked {% if not
+                                            user.is_superuser %} checked disabled {% endif %}>
+                                        <label for="vehicle1"> <span style="color: rgb(227, 255, 170);">Class CR</span>
+                                            {{ cremail }}</label><br>
+
+                                    </div>
+
+                                    <div class="row" style="display: contents;">
+                                        <!-- <label for="tea">Class ACR:</label>  -->
+                                        <input type="checkbox" id="vehicle1" name="acr" value="acr" checked {% if not
+                                            user.is_superuser %} checked disabled {% endif %}>
+                                        <label for="vehicle1"><span style="color: rgb(227, 255, 170);">Class ACR:</span>
+                                            {{ acremail }}</label><br>
+                                    </div>
+
+                                </div>
+
+
+                                <!-- disable check box -->
+                            </div>
+                            <div class="row justify-content-center" style="background: rgb(87 ,39, 52); color:rgb(1, 1, 24); margin: 0px; padding:5px;
+                            ">
+
+                                <input type="submit" value="Done" class="btn btn-success btn-lg mt-3 "
+                                    style="padding:0px; margin:auto; font-size: 20px; font-family: none; background: rgb(54, 165, 141);">
+
+                                <a href="" class="btn btn-danger btn-lg mt-3 "
+                                    style="padding:0px; margin:auto; font-size: 20px; font-family: none; background: rgb(206, 100, 81);">Cancel
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <!-- end request class -->
+            <!-- class row2 for cards -->
+            <div class="col-md-12 justify-content-center mb-5">
+                <h4 class="card-title" style="color:#ff5722;">Time-Table</h4>
+
+            </div>
+        </section>
+        <hr class="my-5" style="color:#ff5722;">
+        <!-- Section 2: Faculty Members -->
+
+        <section class="text-center">
+            <h2 class="mb-5 font-weight-bold" style="color:#ff5722;">Meet Our Faculty</h2>
+            <div class="row d-flex justify-content-center mb-4">
+                <div class="col-md-8">
+                    <p class="grey-text">SSUET Computer Engineering Depart
+                        Sir Syed Univesity faculty is outstanding even I cant describe in words my expression
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+        <hr class="my-5" style="color:#ff5722;">
+    </div>
+
+
+    <hr class="my-5" style="color:#ff5722;">
+</main>
+
+
+{%endblock%}

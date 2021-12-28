@@ -1,0 +1,269 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}index page{% endblock %}
+
+
+{% block content %}
+
+<main class=" ">
+  <!--Main layout-->
+  <div class="">
+    <h2 class="font-weight-bold text-center" style="color:#ff5722;">SSUET</h2>
+    <!-- class row for description-->
+    <div class="row d-flex justify-content-center ">
+      <!-- class column -->
+      <div class="col-md-8">
+        <h4 class="font-weight-bold text-center"> DEPARTMENTS</h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 col-12">
+        <!-- Card Dark -->
+        <div class="card">
+          <!-- Card image -->
+          <div class="view overlay">
+            <img class="card-img-top"
+              src="https://leverageedu.com/blog/wp-content/uploads/2020/05/Computer-Engineering-Subjects.png"
+              alt="Card image cap" height="194px" />
+            <a>
+              <div class="mask rgba-white-slight"></div>
+            </a>
+          </div>
+
+          <!-- Card content -->
+          <div class="card-body elegant-color white-text rounded-bottom">
+            <!-- Social shares button -->
+            <a class="activator waves-effect mr-4"><i class="fas fa-share-alt white-text"></i></a>
+            <!-- Title -->
+            <h4 class="card-title">
+              <a href="class.html" target="_blank" class="text-white">Computer Engineering</a>
+            </h4>
+            <hr class="hr-light" />
+            <!-- Text -->
+            <p class="card-text white-text mb-4">
+              Computer Engineering is applied reasoning which requires the ability to implement ideas through Software
+              and Hardware technology. The Course is concerned with software and hardware.
+            </p>
+            <!-- Link -->
+            <a href="#!" class="white-text d-flex justify-content-end">
+              <h5>Read more <i class="fas fa-angle-double-right"></i></h5>
+            </a>
+          </div>
+        </div>
+        <!-- Card Dark -->
+      </div>
+
+
+      <div class="col-md-4 col-12">
+        <!-- Card Dark -->
+        <div class="card">
+          <!-- Card image -->
+          <div class="view overlay">
+            <img class="card-img-top" height="194px"
+              src="data:image/jpeg;base64,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"
+              alt="Card image cap" />
+            <a>
+              <div class="mask rgba-white-slight"></div>
+            </a>
+          </div>
+
+          <!-- Card content -->
+          <div class="card-body elegant-color white-text rounded-bottom">
+            <!-- Social shares button -->
+            <a class="activator waves-effect mr-4"><i class="fas fa-share-alt white-text"></i></a>
+            <!-- Title -->
+            <h4 class="card-title">
+              <a href="class.html" target="_blank" class="text-white">Civil Engineering</a>
+            </h4>
+            <hr class="hr-light" />
+            <!-- Text -->
+            <p class="card-text white-text mb-4">
+              Civil Engineering is concerned with establishing many basic facilities of modern civilized life such as,
+              buildings, roads, bridges, railways, dams, canals, ports
+            </p>
+            <!-- Link -->
+            <a href="#!" class="white-text d-flex justify-content-end">
+              <h5>Read more <i class="fas fa-angle-double-right"></i></h5>
+            </a>
+          </div>
+        </div>
+        <!-- Card Dark -->
+      </div>
+
+
+      {% for standard in standards %}
+      <div class=" col-md-4 col-12">
+        <!-- Card Dark -->
+        <div class="card">
+          <!-- Card image -->
+          <div class="view overlay">
+            <img class="card-img-top" height="194px"
+              src="https://i.pinimg.com/originals/39/8a/cc/398accea59afa0c87ddbec825da885c4.jpg" alt="Card image cap" />
+            <a>
+              <div class="mask rgba-white-slight"></div>
+            </a>
+          </div>
+
+          <!-- Card content -->
+          <div class="card-body elegant-color white-text rounded-bottom">
+            <!-- Social shares button -->
+            <a class="activator waves-effect mr-4"><i class="fas fa-share-alt white-text"></i></a>
+            <!-- Title -->
+            <h4 class="card-title">
+              <a href="{% url 'curriculum:section' slug=standard.slug %}" target="_blank" class="text-white">Software
+                Engineering</a>
+            </h4>
+            <hr class="hr-light" />
+            <!-- Text -->
+            <p class="card-text white-text mb-4">
+              Software Engineering is the discipline of systematic production and maintenance of software systems that
+              behave reliably and efficiently.
+            </p><br>
+            <!-- Link -->
+            <a href="#!" class="white-text d-flex justify-content-end">
+              <h5>Read more <i class="fas fa-angle-double-right"></i></h5>
+            </a>
+          </div>
+        </div>
+        <!-- Card Dark -->
+      </div>
+      {% endfor %}
+
+
+
+    </div>
+  </div>
+  <!--/Main layout-->
+
+
+
+
+
+
+
+
+  <!-- <div class="container ">
+
+    <section class="text-center">
+      <h2 class="mb-5 font-weight-bold" style="color:#ff5722;">SSUET</h2>
+      <div class="row d-flex justify-content-center mb-4">
+        <div class="col-md-8">
+          <p class="grey-text"> DEPARTMENTS</p>
+        </div>
+      </div>
+      <div class="row">
+        {% for standard in standards %}
+        <div class="col-md-4 d-flex mb-5 justify-content-center">
+          <div class="card text-center" style="width: 18rem;">
+            <div class="card-body">
+              <h4 class="card-title" style="color:#ff5722;">{{standard.name}}</h4>
+              <p class="card-text">{{standard.description|truncatechars:75}}</p>
+              {% if user.is_authenticated %}
+              <a href="{% url 'curriculum:section' slug=standard.slug %}" class="btn btn-primary"
+                style="background-color:#00bcd4;">Start Learning</a>
+              {%else%}
+              <p>Register or login to start learning</p>
+              <a href="{% url 'user_login' %}" class="btn btn-primary" style="background-color:#00bcd4;">Login</a>
+              <a href="{% url 'register' %}" class="btn btn-primary" style="background-color:#00bcd4;">Register</a>
+              {%endif%}
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+    <hr class="my-5" style="color:#ff5722;">
+
+    <section class="text-center">
+      <h2 class="mb-5 font-weight-bold" style="color:#ff5722;">Meet Our Faculty</h2>
+      <div class="row d-flex justify-content-center mb-4">
+        <div class="col-md-8">
+          <p class="grey-text">Resource Allocator</p>
+        </div>
+        <div class="row d-flex justify-content-center mb-3">
+          {% for teacher in teachers %}
+          <div class="card mb-3 mr-5 ml-3" style="max-width: 500px;">
+            <div class="row no-gutters">
+              <div class="col-md-4">
+                <img src="{{teacher.profile_pic.url|default_if_none:'#'}}" class="card-img" alt="No image found">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title" style="color:#ff5722;">{{teacher.user.username}}</h5>
+                  <p class="card-text">{{teacher.bio|truncatechars:75}}</p>
+                  <p class="card-text"><small class="text-muted"></small></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+
+    <hr class="my-5" style="color:#ff5722;">
+  </div> -->
+
+
+  <!-- <section class="b1 text-center full-width container-fluid" id="event-section">
+    <h2 class="mb-3 mt-5 font-weight-bold" style="color:#ff5722;">Upcoming Events</h2>
+    <div class="row d-flex justify-content-center mb-4">
+      <div class="col-md-8">
+        <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi voluptate
+          hic
+          provident nulla repellat
+          facere esse molestiae ipsa labore porro minima quam quaerat rem, natus repudiandae debitis
+          est
+          sit pariatur.</p>
+      </div>
+    </div>
+    <div class="row d-flex justify-content-center mb-4">
+      <div class="card mb-3 mr-5 ml-3" style="max-width:450px;max-height:450px;">
+        <img
+          src="https://static.dribbble.com/users/1783758/screenshots/6386088/vinyl-record-and-cover-presentation-mock-up_2x.png"
+          alt="no image found" width="450" height="450">
+        <div class="event-mask justify-content-center">
+          <div class="row d-flex justify-content-center">
+            <h2 class="font-weight-bold" style="color:#ff5722;">About the Event</h2>
+          </div>
+          <div class="row d-flex justify-content-center">
+            <div class="col">
+              <p class="text-white">Resource Allocator</p>
+            </div>
+          </div>
+          <div class="row d-flex justify-content-center">
+            <a href="{% url 'user_login' %}" class="btn btn-primary mb-3" style="background-color:#ff5722;">Get
+              Details</a>
+          </div>
+        </div>
+      </div>
+      <div class="card mb-3 mr-5 ml-3" style="max-width: 450px;max-height:450px;">
+        <img
+          src="https://c8.alamy.com/comp/2B8C4RC/debate-dialog-communication-and-education-concept-talking-about-political-opinions-two-cardboard-speech-bubbles-2B8C4RC.jpg"
+          alt="no image found" width="450" height="450">
+        <div class="event-mask">
+          <div class="row d-flex justify-content-center">
+            <h2 class="font-weight-bold" style="color:#ff5722;">About the Event</h2>
+          </div>
+          <div class="row d-flex justify-content-center">
+            <div class="col">
+              <p class="text-white">Resource Allocator</p>
+            </div>
+          </div>
+          <div class="row d-flex justify-content-center">
+            <a href="{% url 'user_login' %}" class="btn btn-primary mb-3" style="background-color:#ff5722;">Get
+              Details</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row d-flex justify-content-center mt-5 mb-3">
+      <a href="{% url 'user_login' %}" class="btn btn-primary mb-4" style="background-color:#ff5722;">See All Events</a>
+    </div>
+  </section>
+  <hr class="my-5" style="color:#ff5722;">
+</main> -->
+
+
+{%endblock%}

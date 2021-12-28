@@ -1,0 +1,462 @@
+{% extends 'casting/oberecord.html' %}
+
+{% load static %}
+
+
+
+{% block chart %}
+
+<h2> Examination Report of Department <span style="font-weight: bold; text-transform: uppercase;"> {{d_name}}</span>
+    Course <span style="font-weight: bold; text-transform: uppercase;">{{c_name}}</span>
+    <br> OBE vs
+    Normal
+</h2>
+<br>
+<h4>Clo's Based Visualised</h4>
+<h5> Select Section as your need/desire, here!</h5>
+<div>
+    <button class="btn peach-gradient" onclick="change4('bar')">All</button>
+    <button class="btn purple-gradient" onclick="clo([25, 50, 70, 30, 70, 10])">A</button>
+    <button class="btn blue-gradient" onclick="clo([{% for i in timetablec %} {{ i.passed }}, {% endfor %}])">B</button>
+    <button class="btn aqua-gradient" onclick="clo([35, 40, 44, 63, 98, 53])">C</button>
+    <button class="btn peach-gradient" onclick="clo([35, 40, 44, 63, 98, 53])">D</button>
+    <hr>
+
+
+
+    <!-- 
+    <button class="btn btn-sm btn-success" onclick="change4('bar')"> All </button>
+    <button class="btn btn-sm btn-success" onclick="clo([25, 50, 70, 30, 70, 10])"> A </button>
+    <button class="btn btn-sm btn-success"
+        onclick="clo([{% for i in timetablec %} {{ i.passed }}, {% endfor %}])"> B </button>
+    <button class="btn btn-sm btn-success" onclick="clo([35, 40, 44, 63, 98, 53])"> C </button>
+    <button class="btn btn-sm btn-success" onclick="clo([21, 88, 70, 21, 23, 56])"> D </button> -->
+</div>
+<div class="row mt-3 pt-3">
+
+    <div class="col-10 ">
+        <div class=" border-dark p-2 mb-2">
+
+
+        </div>
+        <canvas id="myChart" width="150" height="50"></canvas>
+    </div>
+
+    <script>
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var config = {  //config start 
+            type: 'bar',
+            data: {
+                //labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                labels: [{% for i in timetablec %} '{{ i.year }}',  {% endfor %} ],
+        datasets: [
+            {
+
+                //data: [{% for i in timetablec %} {{ i.passed }}, {% endfor %}],
+                data: [25, 50, 70, 30, 70, 10],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 99, 132, 1)',
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                label: 'of Clo-1',
+                borderWidth: 1
+            } // datasets [0] ended
+
+
+            ,
+            {   // datasets [1] start
+                label: 'of Clo-2',
+                //data: [{% for i in timetablec %} {{ i.passed }}, {% endfor %}],
+                data: [35, 40, 44, 63, 98, 53],
+                backgroundColor: [
+                    'rgba(60, 179, 113, 1)',
+                    'rgba(60, 179, 113, 1)',
+                    'rgba(60, 179, 113, 1)',
+                    'rgba(60, 179, 113, 1)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }   // datasets [1] ended
+            ,
+            {
+                label: 'of Clo-3',
+                //  data: [{% for i in timetablec %} { { i.passed } }, {% endfor %}],
+                data: [21, 88, 70, 21, 23, 56],
+                backgroundColor: [
+                    'rgba(54, 162, 2351)',
+                    'rgba(54, 162, 2351)',
+                    'rgba(54, 162, 2351)',
+                    'rgba(54, 162, 2351)',
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            } // datasets [2] ended
+            ,
+            {
+                label: 'of Clo-4',
+                // data: [{% for i in timetablec %} { { i.passed } }, {% endfor %}],
+                data: [55, 22, 56, 88, 70, 10],
+                backgroundColor: [
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(255, 206, 86, 1)',
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            } // datasets [3] ended
+        ] // data sets closed
+                    },  // data closed
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+            
+            }  // config ended
+        var myChart = new Chart(ctx, config);
+
+        function change(newType) {
+            var ctx = document.getElementById("myChart").getContext("2d");
+
+            // Remove the old chart and all its event handles
+            if (myChart) {
+                myChart.destroy();
+            }
+
+            // Chart.js modifies the object you pass in. Pass a copy of the object so we can use the original object later
+            var temp = jQuery.extend(true, {}, config);
+            temp.type = newType;
+            myChart = new Chart(ctx, temp);
+        };
+
+        function clo(data1) {
+            myChart.data.datasets[0].data = data1;
+            myChart.update();
+
+        }
+
+        // line bar
+    </script>
+
+    <div class="col-md-1 mt-5" style="justify-content: space-around; margin-top: 225px !important; margin-left: -15px;">
+        <div class="d-flex flex-column">
+            <button class="btn btn-sm btn-info mt-3" onclick="change('line')" style="width: 100px;"> line </button>
+            <button class="btn btn-sm btn-info mt-3" style="width: 100px;" onclick="change('bar')"> bar </button>
+        </div>
+
+
+    </div>
+
+    <div class="" style="margin-top: 50px;">
+        <div style="margin-left: 330px;">
+            <h4>Comparision of OBE vs Normal</h4>
+            <button class="btn aqua-gradient" onclick="addrow2()">Add Row</button>
+
+            <!-- <button class="btn btn-sm btn-success" onclick="addrow2()"> Add Row </button> -->
+
+        </div>
+
+    </div>
+    <div class="col-10 mb-2 ">
+
+        <div class=" mb-5 p-2 float-left ">
+
+
+        </div>
+        <canvas id="myChart1" width="150" height="80"></canvas>
+
+
+        <script>
+            var ctx = document.getElementById('myChart1').getContext('2d');
+            var config2 = {  //config start 
+                type: 'bar',
+                data: {
+                    //labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                    labels: [{% for i in timetablec %} '{{ i.year }}',  {% endfor %} ],
+            datasets: [
+                {
+
+                    //data: [{% for i in timetablec %} {{ i.passed }}, {% endfor %}],
+                    data: [25, 50, 70, 30, 70, 10],
+                    backgroundColor: [
+                        'rgba(50, 50, 50, 1)',
+                        'rgba(50, 50, 50, 1)',
+                        'rgba(50, 50, 50, 1)',
+                        'rgba(50, 50, 50, 1)',
+                    ],
+                    borderColor: [
+                        'rgba(50, 50, 50, 1)',
+                        'rgba(50, 50, 50, 1)',
+                        'rgba(50, 50, 50, 1)',
+                        'rgba(50, 50, 50, 1)',
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    label: 'of clo\'s',
+                    borderWidth: 1
+                } // datasets [0] ended
+
+
+                ,
+                {   // datasets [1] start
+                    label: 'of Normal',
+                    //data: [{% for i in timetablec %} {{ i.passed }}, {% endfor %}],
+                    data: [35, 40, 44, 63, 98, 53],
+                    backgroundColor: [
+                        'rgba(150, 150, 150, 1)',
+                        'rgba(150, 150, 150, 1)',
+                        'rgba(150, 150, 150, 1)',
+                        'rgba(150, 150, 150, 1)',
+                        'rgba(150, 150, 150, 1)',
+                    ],
+                    borderColor: [
+                        'rgba(150, 150, 150, 1)',
+                        'rgba(150, 150, 150, 1)',
+                        'rgba(150, 150, 150, 1)',
+                        'rgba(150, 150, 150, 1)',
+                        'rgba(150, 150, 150, 1)',
+                        'rgba(150, 150, 150, 1)',
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }   // datasets [1] ended
+
+            ] // data sets closed
+                        },  // data closed
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+                
+                }  // config ended
+            var myChart1 = new Chart(ctx, config2);
+
+            function change2(newType) {
+                var ctx = document.getElementById("myChart1").getContext("2d");
+
+                // Remove the old chart and all its event handles
+                if (myChart) {
+                    myChart1.destroy();
+                }
+
+                // Chart.js modifies the object you pass in. Pass a copy of the object so we can use the original object later
+                var temp = jQuery.extend(true, {}, config2);
+                temp.type = newType;
+                myChart1 = new Chart(ctx, temp);
+            };
+
+            // line bar
+        </script>
+    </div>
+    <div class="col-md-1 mt-5" style="justify-content: space-around; margin-top: 225px !important; margin-left: -15px;">
+        <div class="d-flex flex-column">
+            <button class="btn btn-sm btn-info mt-3" onclick="change2('line')" style="width: 100px;"> line </button>
+            <button class="btn btn-sm btn-info mt-3" onclick="change2('bar')" style="width: 100px;"> bar </button>
+        </div>
+
+
+    </div>
+</div>
+
+
+<div class="row mt-3 pt-3" id="rowdiv"></div>
+
+<div class="row mt-3 pt-3" id="rowdiv2"></div>
+
+<script>
+    function addrow() {
+        const rowdiv = document.getElementById("rowdiv");
+        rowdiv.innerHTML += `
+    <div class="col-6 "> 
+        hi new row
+        <h5> hi</h5> 
+        <canvas id="myChart3" width="100" height="50"></canvas>
+        
+        
+    </div>
+    `;
+        const ctx = document.getElementById('myChart3').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                //labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                labels: [{% for i in timetablec %} '{{ i.year }}',  {% endfor %} ],
+    datasets: [
+        {
+            label: '# of Votes',
+            data: [{% for i in timetablec %} {{ i.passed }}, {% endfor %}],
+        // data: [2,4,7,3,7,1],
+        backgroundColor: [
+            'rgba(255, 99, 132, 0.8)',
+            'rgba(54, 162, 235, 0.6)',
+            'rgba(255, 206, 86, 0.4)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.4)',
+            'rgba(255, 159, 64, 1)',
+        ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+                borderWidth: 1
+                                                                    } // datasets [0] ended
+                                                                    ,
+    {   // datasets [1] start
+        label: '# of Votes',
+            //data: [{% for i in timetablec %} {{ i.passed }}, {% endfor %}],
+            data: [2, 4, 7, 3, 7, 1],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 206, 86, 0.4)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.4)',
+                    'rgba(255, 159, 64, 1)',
+                ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                        borderWidth: 1
+    }   // datasets [1] ended
+                                                                    ] // data sets closed
+                },  // data closed
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+        });
+} // func ended
+
+    function addrow2() {
+        const rowdiv2 = document.getElementById("rowdiv2");
+        rowdiv2.innerHTML += `
+    <div class="col-6  "> 
+        hi new row
+        <h5> hi</h5> 
+        <canvas id="myChart4" width="100" height="50"></canvas>
+        
+        
+    </div>
+    `;
+        const ctx1 = document.getElementById('myChart4').getContext('2d');
+        const myChart2 = new Chart(ctx1, {
+            type: 'bar',
+            data: {
+                //labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                labels: [{% for i in timetablec %} '{{ i.year }}',  {% endfor %} ],
+    datasets: [
+        {
+            label: '# of Votes',
+            data: [{% for i in timetablec %} {{ i.passed }}, {% endfor %}],
+        // data: [2,4,7,3,7,1],
+        backgroundColor: [
+            'rgba(255, 99, 132, 0.8)',
+            'rgba(54, 162, 235, 0.6)',
+            'rgba(255, 206, 86, 0.4)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.4)',
+            'rgba(255, 159, 64, 1)',
+        ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+                borderWidth: 1
+                                                                    } // datasets [0] ended
+                                                                    ,
+    {   // datasets [1] start
+        label: '# of Votes',
+            //data: [{% for i in timetablec %} {{ i.passed }}, {% endfor %}],
+            data: [2, 4, 7, 3, 7, 1],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 206, 86, 0.4)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.4)',
+                    'rgba(255, 159, 64, 1)',
+                ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                        borderWidth: 1
+    }   // datasets [1] ended
+                                                                    ] // data sets closed
+                },  // data closed
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+        });
+} // func ended
+
+
+
+    function integrate() {
+        addrow();
+    }
+
+</script>
+{% endblock %}

@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Standards {% endblock %}
+
+
+
+
+{% block content %}
+<section id="best-features" class="text-center">
+  <h2 class="mb-5 mt-5 font-weight-bold" style="color:#ff5722;">Master The Subject</h2>
+  <!-- class row for description-->
+  <div class="row d-flex justify-content-center mb-4">
+    <!-- class column -->
+    <div class="col-md-8 mb-5">
+      <p class="grey-text">FYP group 19 Computer Engineering Depart
+        Sir Syed Univesity faculty is outstanding even I cant describe in words my expression</p>
+    </div>
+  </div>
+  <div class="col-md-12 justify-content-center mb-5">
+    <h4 class="card-title" style="color:#ff5722;">Time-Table</h4>
+    <table id="class-time-table">
+      <tr>
+        <th></th>
+
+        {% for slot in slots %}
+        <th scope="row">{{slot.start_time}}</th>
+        {% endfor %}
+      </tr>
+      <tr>
+        <th>Monday</th>
+        {% with c=4 %}
+        {%for slot in sec_ttob %}
+
+        {%if slot.day.id == 1 %}
+        <td>{{slot.slot_subject.name}}</td>
+
+        {% else %}
+
+
+        <td>
+          <button class="btn btn-success btn-sm "> Book </button>
+        </td>
+
+        {% endif %}
+
+
+        {% endfor %}
+        {{c}}
+        {% endwith %}
+      </tr>
+      <tr>
+        <th>Tuesday</th>
+        {%for slot in sec_ttob%}
+        {%if slot.day.id == 2 %}
+        <td>{{slot.slot_subject.name }}</td>
+
+        {% else %}
+
+        <td>
+          <button class="btn btn-success btn-sm "> Book </button>
+        </td>
+
+        {% endif %}
+        {% endfor %}
+      </tr>
+      <tr>
+        <th>Wednesday</th>
+        {%for slot in sec_ttob %}
+        {%if slot.day.id == 3 %}
+        <td>{{slot.slot_subject.name }}</td>
+
+        {% else %}
+
+        <td>
+          <button class="btn btn-success btn-sm "> Book </button>
+        </td>
+
+        {% endif %}
+        {% endfor %}
+      </tr>
+      <tr>
+        <th>Thursday</th>
+        {%for slot in sec_ttob %}
+        {%if slot.day.id == 4 %}
+        <td>{{slot.slot_subject.name}}</td>
+
+        {% else %}
+
+        <td>
+          <a href="    " class="btn btn-success btn-sm "> Book </a>
+        </td>
+
+        {% endif %}
+        {% endfor %}
+      </tr>
+      <tr>
+        <th>Friday</th>
+        {%for slot in sec_ttob %}
+        {%if slot.day.id == 5 %}
+        <td>{{slot.slot_subject.name }}</td>
+
+        {% else %}
+
+        <td>
+          <button class="btn btn-success btn-sm "> Book </button>
+        </td>
+
+        {% endif %}
+        {% endfor %}
+      </tr>
+    </table>
+  </div>
+  <!-- class row2 for cards -->
+  <div class="row d-flex justify-content-center mb-3">
+    {% for subject in standards.subjects.all %}
+
+    {% endfor %}
+  </div>
+</section>
+{%endblock%}

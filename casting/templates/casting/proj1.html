@@ -1,0 +1,116 @@
+{% extends 'casting/oberecord.html' %}
+
+{% load static %}
+
+{% load mathfilters %}
+
+
+
+{% block chart %}
+
+<h2>Projector Report</h2>
+
+<div class="row mt-3 pt-3">
+
+    
+
+    {% for i in projectors %}
+
+    <div class="col-3 ">
+        <div class="border border-dark p-2 mb-2 float-left">
+            <h4>Active Projector/h4>
+                <h5> Select Section as your need/desire, here!</h5>
+                <div>
+                    <button class="btn btn-sm btn-success" onclick="change4('bar')"> All </button>
+                </div>
+        </div>
+        <canvas id="myChart{{forloop.counter}}" width="70px" height="50px"></canvas>
+    </div>
+
+
+    <script>
+        var ctx = document.getElementById('myChart{{forloop.counter}}').getContext('2d');
+        var config = {  //config start 
+            type: 'pie',
+            data: {
+                labels: ['Used', 'Free'],
+
+                datasets: [
+                    { 
+
+                        data: [{{ i.t_run }}, {{ i.capacity|sub:i.t_run }} ],
+                        
+            backgroundColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)'
+
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)'
+
+            ],
+            label: 'of Clo-1',
+            borderWidth: 1
+        } // datasets [0] ended
+ 
+            ] // data sets closed
+                    },  // data closed
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+            
+            }  // config ended
+        var myChart = new Chart(ctx, config);
+
+        function change(newType, id) {
+            var btnid = id
+            chartid = "myChart"+id 
+            var ctx = document.getElementById(chartid).getContext("2d");
+
+            // Remove the old chart and all its event handles
+            if (myChart) {
+                myChart.destroy();
+                //myChart.update();
+            }
+
+            // Chart.js modifies the object you pass in. Pass a copy of the object so we can use the original object later
+            var temp = jQuery.extend(true, {}, config);
+            temp.type = newType;
+            myChart = new Chart(ctx, temp);
+        };
+
+        function clo(data1) {
+            myChart.data.datasets[0].data = data1;
+            myChart.update();
+
+        }
+
+        // line bar
+    </script>
+
+    <div class="col-md-1 mt-5" style="justify-content: space-around; margin-top: 225px !important; margin-left: -15px;">
+        <div class="d-flex flex-column">
+            <button Id="{{forloop.counter}}" class="btn btn-sm btn-info mt-3" onclick="change('pie', this.id)"> pie </button>
+            <button Id="{{forloop.counter}}" class="btn btn-sm btn-info mt-3" onclick="change('line', this.id)"> line </button>
+            <button Id="{{forloop.counter}}" class="btn btn-sm btn-info mt-3" onclick="change('bar', this.id)"> bar </button>
+        </div>
+
+
+    </div>
+    
+    {% endfor %}
+
+
+</div>
+
+
+<div class="row mt-3 pt-3" id="rowdiv"></div>
+
+<div class="row mt-3 pt-3" id="rowdiv2"></div>
+
+{% endblock %}

@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <title>{%block title%}{%endblock%}</title>
+    <!-- chartjs cdn copied manually -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
+
+
+    <!-- font -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;1,900&family=Praise&display=swap"
+        rel="stylesheet">
+    <!-- font -->
+
+
+    <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;display=swap">
+    <link rel="stylesheet" type="text/css"
+        href="https://mdbootstrap.com/api/snippets/static/download/MDB-Pro_4.20.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://mdbootstrap.com/api/snippets/static/download/MDB-Pro_4.20.0/css/mdb.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/docs-app/css/compiled-addons-4.20.0.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/css/mdb-plugins-gathered.min.css">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/master_css.css' %}">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .mystyle {
+            background: #ff0000;
+
+
+        }
+
+        .nav-link:hover {
+            background-color: rgba(248, 252, 250, 0.76);
+        }
+
+        .nav-item:hover {
+            color: rgb(245, 245, 245);
+            background-color: rgb(42, 124, 74, 30%);
+        }
+
+        .dropdown-submenu {
+            position: relative;
+        }
+
+        .dropdown-submenu>a:after {
+            content: ">";
+            float: right;
+        }
+
+        .dropdown-submenu>.dropdown-menu {
+            top: 0;
+            left: 100%;
+            margin-top: 0px;
+            margin-left: 0px;
+        }
+
+        .dropdown-submenu:hover>.dropdown-menu {
+            display: block;
+        }
+
+        .success {
+            background-color: #ff0000;
+        }
+
+        .b1 {
+            border: 3px solid red;
+        }
+    </style>
+    <!-- drop down -->
+
+    <!-- drop down -->
+</head>
+
+<body class="fixed-sn pink-skin">
+    <!--Double navigation-->
+    <header style="height: 0;">
+        <!-- Sidebar navigation -->
+        <div id="slide-out" class="side-nav sn-bg-4 fixed">
+            <ul class="custom-scrollbar">
+                <!-- Logo -->
+                <li>
+                    <div class=" logo-wrapper waves-light" style="height: 170px;">
+                        <a href="#"><img
+                                src="data:image/jpeg;base64,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"
+                                class="img-fluid flex-center"></a>
+                    </div>
+                </li>
+                <!--/. Logo -->
+                <!--Social-->
+                <li>
+                    <ul class="social">
+                        <li><a href="#" class="icons-sm fb-ic"><i class="fab fa-facebook-f"> </i></a></li>
+                        <li><a href="#" class="icons-sm pin-ic"><i class="fab fa-pinterest"> </i></a></li>
+                        <li><a href="#" class="icons-sm gplus-ic"><i class="fab fa-google-plus-g"> </i></a></li>
+                        <li><a href="#" class="icons-sm tw-ic"><i class="fab fa-twitter"> </i></a></li>
+                    </ul>
+                </li>
+                <!--/Social-->
+                <!--Search Form-->
+                <li>
+                    <form class="search-form" role="search">
+                        <div class="form-group md-form mt-0 pt-1 waves-light">
+                            <input type="text" class="form-control" placeholder="Search">
+                        </div>
+                    </form>
+                </li>
+                <!--/.Search Form-->
+                <!-- Side navigation links -->
+                <li>
+                    <ul class="collapsible collapsible-accordion">
+                        <li><a class="collapsible-header waves-effect arrow-r"><i class="fas fa-chevron-right"></i>
+                                Allocate<i class="fas fa-angle-down rotate-icon"></i></a>
+                            <div class="collapsible-body">
+                                <ul class="list-unstyled">
+                                    <li><a href="{% url 'casting:timetableurl' %}" class="waves-effect">Class Room</a>
+                                    </li>
+                                    <li><a href="{% url 'casting:laburl' %}" class="waves-effect">Lab</a>
+                                    </li>
+                                    <li><a href="#" class="waves-effect">Auditorium Hall</a>
+                                    </li>
+                                    <li><a href="#" class="waves-effect">Conference Room</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class=""><a class="collapsible-header waves-effect arrow-r"><i
+                                    class="far fa-hand-pointer"></i>
+                                Student Analysis<i class="fas fa-angle-down rotate-icon"></i></a>
+                            <div class="collapsible-body">
+                                <ul class="list-unstyled">
+                                    <li><a href="{% url 'casting:oberecordurl' %}" class=" waves-effect">
+                                            OBE</a>
+                                    </li>
+                                    <li><a href="#" class="waves-effect">For authors</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li><a class="collapsible-header waves-effect arrow-r"><i class="fas fa-eye"></i> Resources<i
+                                    class="fas fa-angle-down rotate-icon"></i></a>
+                            <div class="collapsible-body">
+                                <ul class="list-unstyled">
+                                    <li><a href="{% url 'casting:projurl' %}" class="waves-effect">Projector</a>
+                                    </li>
+                                    <li><a href="#" class="waves-effect">AC</a>
+                                    </li>
+                                    <li><a href="#" class="waves-effect">Class Room</a>
+                                    </li>
+                                    <li><a href="#" class="waves-effect">Lab</a>
+                                    </li>
+
+
+                                </ul>
+                            </div>
+                        </li>
+                        <li><a class="collapsible-header waves-effect arrow-r"><i class="far fa-envelope"></i> Contact
+                                me<i class="fas fa-angle-down rotate-icon"></i></a>
+                            <div class="collapsible-body">
+                                <ul class="list-unstyled">
+                                    <li><a href="#" class="waves-effect">FAQ</a>
+                                    </li>
+                                    <li><a href="#" class="waves-effect">Write a message</a>
+                                    </li>
+                                    <li><a href="#" class="waves-effect">FAQ</a>
+                                    </li>
+                                    <li><a href="#" class="waves-effect">Write a message</a>
+                                    </li>
+                                    <li><a href="#" class="waves-effect">FAQ</a>
+                                    </li>
+                                    <li><a href="#" class="waves-effect">Write a message</a>
+                                    </li>
+                                    <li><a href="#" class="waves-effect">FAQ</a>
+                                    </li>
+                                    <li><a href="#" class="waves-effect">Write a message</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <!--/. Side navigation links -->
+            </ul>
+            <div class="sidenav-bg mask-strong"></div>
+        </div>
+        <!--/. Sidebar navigation -->
+        <!-- Navbar -->
+        <nav class=" navbar fixed-top navbar-toggleable-md navbar-expand-lg scrolling-navbar double-nav"
+            style="    background: rgb(158 78 113);">
+            <!-- SideNav slide-out button -->
+            <div class="float-left">
+                <a href="#" data-activates="slide-out" class="button-collapse"><i class="fas fa-bars"></i></a>
+            </div>
+            <!-- Breadcrumb-->
+            <div class="breadcrumb-dn mr-auto ">
+                <p>URAPS SSUET</p>
+            </div>
+            <ul class="nav navbar-nav nav-flex-icons ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link"><i class="fas fa-envelope"></i> <span
+                            class="clearfix d-none d-sm-inline-block">Contact</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"><i class="far fa-comments"></i> <span
+                            class="clearfix d-none d-sm-inline-block">Support</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'admin:index' %}"><i class="fas fa-user"></i> <span
+                            class="clearfix d-none d-sm-inline-block">Account</span></a>
+                </li>
+                <!-- <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        Dropdown
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </li> -->
+            </ul>
+        </nav>
+        <!-- /.Navbar -->
+    </header>
+    <!-- navigation bar -->
+    <!-- <nav class="b1 navbar text-left navbar-expand-lg  navbar-light bg-light fixed-top scrolling-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'index' %}" style="color:#ff5722;">Home</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+                aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="basicExampleNav">
+                <ul class=" navbar-nav  mr-auto smooth-scroll ">
+                    <li class="nav-item ml-2">
+                        <a class="nav-link" href="{% url 'curriculum:standard_list' %}">Curriculum</a>
+                    </li>
+
+                    <li class="nav-item ml-2">
+                        <a class="nav-link" href="{% url 'curriculum:course_list' %}">Course</a>
+                    </li>
+                    {% if user.is_superuser %}
+                    <li class="nav-item ml-2 ">
+                        <a class="nav-link" href="{% url 'admin:index' %}">Admin</span> </a>
+                    </li>
+                    {%endif%}
+                    {% if user.is_authenticated %}
+
+                    <li class="nav-item btn-group dropdown ml-2">
+
+                        <div class="btn-group">
+                            <a id="dLabel" role="button" data-toggle="dropdown"
+                                class="btn btn-primary dropdown-toggle nav-link" href="">
+                                Allocate
+                            </a>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                                <li><a class="dropdown-item" href="{% url 'casting:timetableurl' %}">Class Room</a>
+
+                                </li>
+
+                                <li><a class="dropdown-item" href="#">Conference Room</a>
+                                </li>
+
+                                <li><a class="dropdown-item" href="#">Audtorium Hall</a>
+                                </li>
+
+                                <li class="dropdown-divider"></li>
+
+                                <li class="dropdown-submenu">
+                                    <a class="dropdown-item" tabindex="-1" href="{% url 'casting:laburl' %}">
+                                        Lab
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" tabindex="-1" href="#">Computer/IT</a></li>
+                                        <li><a class="dropdown-item" href="#">Networking</a></li>
+
+                                        <li class="dropdown-submenu">
+                                            <a class="dropdown-item" href="#">
+                                                Science
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="#">Physics</a></li>
+                                                <li><a class="dropdown-item" href="#">Electronic</a></li>
+                                            </ul>
+                                        </li>
+
+                                        <li><a class="dropdown-item" href="#">Any</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown-divider"></li>
+                                <li class="dropdown-submenu">
+                                    <a class="dropdown-item" tabindex="-2" href="#">
+                                        Transport
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" tabindex="-1" href="#">Ambulance</a></li>
+                                        <li><a class="dropdown-item" href="#">Bus</a></li>
+
+                                        <li class="dropdown-submenu">
+                                            <a class="dropdown-item" href="#">
+                                                Car
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="#">4 seater</a></li>
+                                                <li><a class="dropdown-item" href="#">6 seater</a></li>
+                                                <li><a class="dropdown-item" href="#">8 seater</a></li>
+                                            </ul>
+                                        </li>
+
+                                        <li><a class="dropdown-item" href="#">Other</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </li>
+
+
+                    <li class="nav-item btn-group dropdown ml-2">
+
+                        <div class="btn-group">
+                            <a id="dLabel" role="button" data-toggle="dropdown"
+                                class="btn btn-primary dropdown-toggle nav-link" href="">
+                                Analysis
+                            </a>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+
+
+                                <li class="dropdown-divider"></li>
+
+                                <li class="dropdown-submenu">
+                                    <a class="dropdown-item" tabindex="-1" href="{% url 'casting:laburl' %}">
+                                        Study OBE
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" tabindex="-1"
+                                                href="{% url 'casting:oberecordurl' %}">Student</a></li>
+                                        <li><a class="dropdown-item" href="#">Teacher</a></li>
+
+                                        <li class="dropdown-submenu">
+                                            <a class="dropdown-item" href="#">
+                                                Course
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="#">Engineering</a></li>
+                                                <li><a class="dropdown-item" href="#">Non-Enginneering</a></li>
+                                            </ul>
+                                        </li>
+
+                                    </ul>
+                                </li>
+                                <li class="dropdown-divider"></li>
+                                <li class="dropdown-submenu">
+                                    <a class="dropdown-item" tabindex="-2" href="#">
+                                        Resources
+                                    </a>
+                                    <ul class="dropdown-menu">
+
+                                        <li class="dropdown-submenu">
+                                            <a class="dropdown-item" href="#">
+                                                Room
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="#">Class</a></li>
+                                                <li><a class="dropdown-item" href="#">Lab</a></li>
+                                                <li><a class="dropdown-item" href="#">Auditorium</a></li>
+                                                <li><a class="dropdown-item" href="#">Conference</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="dropdown-submenu">
+                                            <a class="dropdown-item" href="#">
+                                                Appliances
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="#">A/C</a></li>
+                                                <li><a class="dropdown-item"
+                                                        href="{% url 'casting:projurl' %}">Projector</a></li>
+                                                <li><a class="dropdown-item" href="#">Computer</a></li>
+                                            </ul>
+                                        </li>
+
+                                        <li><a class="dropdown-item" href="#">Other</a></li>
+                                    </ul>
+                                </li>
+                                <li><a class="dropdown-item" href="#">Admission</a>
+                                </li>
+                                <li><a class="dropdown-item" href="#">Finance</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </li>
+
+
+                    <li class="nav-item  ml-2">
+                        <a class="nav-link" href="{% url 'user_logout' %}">Logout</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item ml-2 ">
+                        <a class="nav-link" href="{% url 'user_login' %}">Login</a>
+                    </li>
+                    <li class="nav-item ml-2">
+                        <a class="nav-link" href="{% url 'register' %}">Register</span> </a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item ml-2">
+                        <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
+                    </li>
+            </ul>
+            </div>
+        </div>
+    </nav> -->
+    <!-- {% block image_block %}
+    {% endblock %} -->
+
+    <header>
+        <!--Image and mask-->
+        <div id="intro" class="container-fluid d-flex align-items-center justify-content-center h-100">
+            <div class="row d-flex justify-content-center text-center">
+                <div class="col-md-10 text-white">
+                    <!-- heading -->
+                    {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                        <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }} </li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    <marquee class="" width="1000px" direction="right" height="100px">
+
+                        <h2 class="text-center" style="color: #fdc830">URAPS</h2>
+                        <h4 class="text-center">SIR SYED
+                            UNIVERSITY OF ENINEERING AND TECHNOLOGY</h4>
+                    </marquee>
+
+
+                    <!-- <h2 class="display-4 font-weight-bold white-text  p-5 mb-2" style="color:#ff5722;"> Department </h2>
+    
+                        
+                    <hr style="color:#ff5722;">
+    
+                    <h4 class="white-text my-4">SSUET Computer Engineering Depart
+                        Sir Syed Univesity faculty is outstanding even I cant describe in words my expression</h4>
+                    <a href="{% url 'curriculum:standard_list' %}"> <button type="button" class="btn"
+                            style="color:#ff5722;border-color:#ff5722;"> Home</button> </a> -->
+
+                    <!-- feedback and github -->
+                    <!-- <div class="row d-flex mt-5 justify-content-center text-center">
+                        <div class="col">
+                            <a href="contact"> <button type="button" class="btn"
+                                    style="color:#ff5722;border-color:#ff5722;"> Resources</button> </a>
+                        </div>
+                        <div class="col">
+                            <a href="{% url 'curriculum:standard_list' %}"> <button type="button" class="btn"
+                                    style="color:#ff5722;border-color:#ff5722;"> Onsite </button> </a>
+                        </div>
+                        <div class="col">
+                            <a href="{% url 'curriculum:standard_list' %}"> <button type="button" class="btn"
+                                    style="color:#ff5722;border-color:#ff5722;"> Online VLE</button> </a>
+                        </div>
+                    </div> -->
+
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        {%block content%}
+        {%endblock%}
+    </div>
+
+
+
+
+    <!-- Footer -->
+    <footer class="page-footer font-small unique-color-dark mt-5">
+
+        <div style="background: rgb(158, 78, 113);">
+            <div class="container">
+
+                <div class="row py-4 d-flex align-items-center">
+
+                    <div class=" col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0">
+                        <h6 class="mb-0">Get connected with us on social networks!</h6>
+                    </div>
+
+                    <div class="col-md-6 col-lg-7 text-center text-md-right">
+
+                        <a class="fb-ic">
+                            <i class="fab fa-facebook-f white-text mr-4"> </i>
+                        </a>
+                        <a class="tw-ic">
+                            <i class="fab fa-twitter white-text mr-4"> </i>
+                        </a>
+                        <a class="gplus-ic">
+                            <i class="fab fa-google-plus-g white-text mr-4"> </i>
+                        </a>
+                        <a class="li-ic">
+                            <i class="fab fa-linkedin-in white-text mr-4"> </i>
+                        </a>
+                        <a class="ins-ic">
+                            <i class="fab fa-instagram white-text"> </i>
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="container text-center text-md-left mt-5">
+
+            <div class="row mt-3">
+
+                <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+
+                    <h6 class="text-uppercase font-weight-bold">About</h6>
+                    <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                    <p>SSUET Computer Engineering Depart</p>
+                    <br>
+                    <p>Developed by: <br>
+                        SSUET 2018-CE FYP roup 19</p>
+
+
+                </div>
+
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+
+                    <!-- Links -->
+                    <h6 class="text-uppercase font-weight-bold">Services</h6>
+                    <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                    <p>
+                        <a href="#!">Resources</a>
+                    </p>
+                    <p>
+                        <a href="#!">Allocation</a>
+                    </p>
+                    <p>
+                        <a href="#!">Student Analysis</a>
+                    </p>
+                </div>
+
+                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+
+                    <h6 class="text-uppercase font-weight-bold">Useful links</h6>
+                    <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                    <p>
+                        <a href="#!">Allocate Class</a>
+                    </p>
+                    <p>
+                        <a href="#!">Allocate Lab</a>
+                    </p>
+                    <p>
+                        <a href="#!">Allocate Meeting</a>
+                    </p>
+                    <p>
+                        <a href="#!">Student OBE</a>
+                    </p>
+                </div>
+                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+
+                    <h6 class="text-uppercase font-weight-bold">Contact</h6>
+                    <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                    <p>
+                        <i class="fas fa-envelope mr-3"></i> CE18-066@ssuet.edu.pk
+                    </p>
+                    <p>
+                        <i class="fas fa-envelope mr-3"></i> CE18-056@ssuet.edu.pk
+                    </p>
+                    <p>
+                        <i class="fas fa-envelope mr-3"></i> CE18-086@ssuet.edu.pk
+                    </p>
+                    <p>
+                        <i class="fas fa-envelope mr-3"></i> CE18-079@ssuet.edu.pk
+                    </p>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="footer-copyright text-center py-3">© 2022 Copyright:
+            <a href="https://mdbootstrap.com/">FYP Group 19</a>
+        </div>
+
+    </footer>
+    <!-- Footer -->
+
+    <!-- chartjs cdn copied manually -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" src="{% static 'js/index.js' %}"></script>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+
+
+        function myGeeks() {
+            var g = document.getElementById("GFG").disabled
+                = true;
+        }
+
+
+        function myFunction() {
+            var element = document.getElementById("aboutid");
+            element.classList.add("mystyle");
+        }
+
+        $(".btn-group, .dropdown, .nav-item").hover(
+            function () {
+                $('>.dropdown-menu', this).stop(true, true).fadeIn("fast");
+                $(this).addClass('open');
+            },
+            function () {
+                $('>.dropdown-menu', this).stop(true, true).fadeOut("fast");
+                $(this).removeClass('open');
+            });
+    </script>
+
+
+    <script src="https://mdbootstrap.com/api/snippets/static/download/MDB-Pro_4.20.0/js/jquery.min.js"></script>
+    <script src="https://mdbootstrap.com/api/snippets/static/download/MDB-Pro_4.20.0/js/popper.min.js"></script>
+    <script src="https://mdbootstrap.com/api/snippets/static/download/MDB-Pro_4.20.0/js/bootstrap.min.js"></script>
+    <script src="https://mdbootstrap.com/api/snippets/static/download/MDB-Pro_4.20.0/js/mdb.min.js"></script>
+    <script
+        src="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/docs-app/js/bundles/4.20.0/compiled-addons.min.js"></script>
+    <script>$(document).ready(() => {
+            // SideNav Initialization
+            $(".button-collapse").sideNav();
+
+            new WOW().init();
+        });</script>
+    <script type="text/javascript"
+        src="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/js/plugins/mdb-plugins-gathered.min.js"></script>
+
+
+
+</body>
+
+</html>

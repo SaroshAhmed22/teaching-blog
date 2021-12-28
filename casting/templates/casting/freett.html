@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Time Table{% endblock %}
+
+
+{% block content %}
+
+<main class="mt-5">
+    <div class="container b1">
+        <!-- section 1 for standards-->
+
+        <section class="text-center">
+            <h2 class="mb-5 font-weight-bold" style="color:#ff5722;"> Resource Allocation </h2>
+            <!-- class row for description-->
+            <div class="row d-flex justify-content-center mb-4">
+                <!-- class column -->
+                <div class="col-md-8">
+                    <p class="grey-text">SSUET Computer Engineering Depart
+                        Sir Syed Univesity faculty is outstanding even I cant describe in words my expression</p>
+                    <h2 class="mb-5 font-weight-bold" style="color:#ff5722;"> Resource Allocation </h2>
+                </div>
+            </div>
+
+            <!-- request for class -->
+            <div class="row d-flex justify-content-center mb-4">
+
+                <form action="{% url 'user_login' %}" method="post">
+                    <div class="form-group">
+
+
+                        {% csrf_token %}
+                        <div class="col-md-12"
+                            style="background: rgb(99 ,127, 147); color:rgb(255, 248 ,220) ; margin-top: 3px; padding:10px; ">
+                            <div class="row" style="display: contents; ">
+                                <label for="dpt">Choose a Department:</label>
+
+
+                                <select name="dpt" id="dpt">
+                                    {% for option in slots %}
+                                    <option value="volvo"> {{option.slot_room }} </option>
+                                    {% endfor %}
+                                </select>
+
+                            </div>
+                            <div class="row" style="display: contents;">
+                                <label for="slotid">Choose a Slot:</label>
+
+
+                                <select name="slotid" id="slotid">
+                                    {% for option in slots %}
+                                    <option value="volvo"> {{option.slot }} </option>
+                                    {% endfor %}
+                                </select>
+
+                            </div>
+                            <div class="row" style="display: contents;">
+                                <label for="dayid">Choose a Day:</label>
+
+                                <select name="dayid" id="dayid">
+                                    {% for option in slots %}
+                                    <option value="volvo"> {{option.day }} </option>
+                                    {% endfor %}
+                                </select>
+
+                            </div>
+
+
+
+                            <!-- <label for="block"> Block:</label>
+                                <input type="text" name="block" placeholder="Username" class="form-control">
+
+                                <label for="timeslot"> Time Slot:</label>
+                                <input type="password" name="timeslot" class="form-control">
+
+                                <label for="day"> Day:</label>
+                                <input type="password" name="day" class="form-control"> -->
+
+
+
+                            <div class="row justify-content-center" style="background: rgb(208, 208, 233); color:rgb(1, 1, 24);
+                            ">
+                                <input type="submit" value="Search" class="btn btn-success btn-lg mt-3 "
+                                    style="padding:2px; font-size: 20px; font-family: none; background: rgb(112 ,128, 144);">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- end request class -->
+            <!-- class row2 for cards -->
+            <div class="col-md-12 justify-content-center mb-5">
+                <h4 class="card-title" style="color:#ff5722;">Available for Allocate</h4>
+                <table id="class-time-table" style="display: inline-block; margin: 5px; padding:5px;">
+                    <tr>
+                        <th scope="row"> S.no</th>
+                        <th scope="row"> ROOM</th>
+                        <th scope="row"> SLOT</th>
+                        <th scope="row"> DAY</th>
+                        {% if user.is_superuser %}
+                        <th scope="row"> ACTION</th>
+                        {% endif %}
+                    </tr>
+
+                    {% for ttc in freettc %}
+                    <tr>
+                        <th> {{ forloop.counter }} </th>
+                        <td>{{ttc.slot_room}}</td>
+                        <td>{{ttc.slot.start_time}} - {{ttc.slot.end_time}}</td>
+                        <td>{{ttc.day.day}}</td>
+                        {% if user.is_superuser %}
+                        <td>
+                            <a href=" {% url 'casting:bookurldef' roomname=ttc.slot_room slottime=ttc.slot.start_time fttid=ttc.id slug=ttc.day.slug %}"
+                                class="btn btn-warning btn-sm">
+                                <button type="button" class="button-les"><span>Ok</span></button>
+                            </a>
+                            <!-- <a href=" {% url 'casting:bookurldef2' roomname=ttc.slot_room.id slottime=ttc.slot.id slug=ttc.day.id %}" class="btn btn-warning btn-sm">
+                                <button type="button" class="button-les"><span>Ok</span></button>
+                            </a> -->
+
+                            <!-- detail try -->
+                            <!-- <a href=" {% url 'casting:bookurl' roomid=ttc.slot_room.id slotid=ttc.slot.id pk=ttc.day.id %}" class="btn btn-warning btn-sm">
+                                <button type="button" class="button-les"><span>Ok</span></button>
+                                ok
+                            </a>  -->
+
+                        </td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+
+                </table>
+            </div>
+        </section>
+        <hr class="my-5" style="color:#ff5722;">
+        <!-- Section 2: Faculty Members -->
+
+        <section class="text-center">
+            <h2 class="mb-5 font-weight-bold" style="color:#ff5722;">Meet Our Faculty</h2>
+            <div class="row d-flex justify-content-center mb-4">
+                <div class="col-md-8">
+                    <p class="grey-text">SSUET Computer Engineering Depart
+                        Sir Syed Univesity faculty is outstanding even I cant describe in words my expression</p>
+                </div>
+
+                <hr class="my-5" style="color:#ff5722;">
+</main>
+
+
+{%endblock%}
